@@ -1,9 +1,6 @@
-package gg.hipposgrumm.explosive_pitcher_pods.entity;
+package dev.hipposgrumm.explosive_pitcher_pods.entity;
 
-import gg.hipposgrumm.explosive_pitcher_pods.ExplosivePitcherPods;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
-import net.minecraft.world.damagesource.DamageTypes;
+import dev.hipposgrumm.explosive_pitcher_pods.ExplosivePitcherPodsMain;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
@@ -23,12 +20,12 @@ public class PitcherPodExplosive extends ThrowableItemProjectile {
         super(type,level);
     }
 
-    public PitcherPodExplosive(double p_37433_, double p_37434_, double p_37435_, Level p_37436_) {
-        super(ExplosivePitcherPods.PITCHER_POD.get(), p_37433_, p_37434_, p_37435_, p_37436_);
+    public PitcherPodExplosive(double x, double y, double z, Level level) {
+        super(ExplosivePitcherPodsMain.PITCHER_POD.get(), x, y, z, level);
     }
 
-    public PitcherPodExplosive(LivingEntity p_37439_, Level p_37440_) {
-        super(ExplosivePitcherPods.PITCHER_POD.get(), p_37439_, p_37440_);
+    public PitcherPodExplosive(LivingEntity entity, Level level) {
+        super(ExplosivePitcherPodsMain.PITCHER_POD.get(), entity, level);
     }
 
     @Override
@@ -58,7 +55,12 @@ public class PitcherPodExplosive extends ThrowableItemProjectile {
         tiltY += inertia.y;
         tiltZ += inertia.z;
         if (age >= 100) {
-            this.explode();
+            if (this.isInWater()) {
+                spawnAtLocation(getItem());
+                discard();
+            } else {
+                this.explode();
+            }
         }
         if (this.getDeltaMovement().y>=-2) age++;
         if (this.isInWater()) {

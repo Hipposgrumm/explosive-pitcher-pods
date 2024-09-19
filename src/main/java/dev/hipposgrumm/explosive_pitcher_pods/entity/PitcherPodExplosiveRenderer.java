@@ -1,4 +1,4 @@
-package gg.hipposgrumm.explosive_pitcher_pods.entity;
+package dev.hipposgrumm.explosive_pitcher_pods.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -12,8 +12,8 @@ public class PitcherPodExplosiveRenderer<T extends PitcherPodExplosive> extends 
     }
 
     @Override
-    public void render(T entity, float p_116086_, float p_116087_, PoseStack poseStack, MultiBufferSource p_116089_, int p_116090_) {
-        super.render(entity,p_116086_,p_116087_,poseStack,p_116089_,p_116090_);
+    public void render(T entity, float yaw, float tickDelta, PoseStack poseStack, MultiBufferSource shaderSource, int light) {
+        super.render(entity, yaw, tickDelta, poseStack, shaderSource, light);
         poseStack.pushPose();
         poseStack.mulPose(Axis.XP.rotation(entity.tiltX));
         poseStack.mulPose(Axis.YP.rotation(entity.tiltY));

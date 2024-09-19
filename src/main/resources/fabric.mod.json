@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "${modid}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${author}"
+  ],
+  "contact": {},
+  "license": "${license}",
+  "icon": "assets/${modid}/mod.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "${group}.${modid}.ExplosivePitcherPodsMain"
+    ],
+    "client": [
+      "${group}.${modid}.ExplosivePitcherPodsMain"
+    ]
+  },
+  "mixins": [
+    "${modid}.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${fabric_version}",
+    "fabric": ">=${fabric_api_version}+${minecraft_version}",
+    "minecraft": "${minecraft_dep}"
+  }
+}
