@@ -28,11 +28,11 @@ import org.slf4j.Logger;
 /*import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-//? if <1.21 {
-/^import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
- ^///?} else {
+//? if >=1.20.5 {
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-//?}
+ //?} else {
+/^import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+^///?}
 *///?} elif forge {
 /*import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -107,7 +107,7 @@ public class ExplosivePitcherPodsMain /*? if fabric {*//*implements net.fabricmc
 
     public static class LiveModEvents {
         public static boolean breakPitcherPod(LevelAccessor level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-            if (!player.getAbilities().instabuild && !player.getMainHandItem().is(/*? if forge {*//*Tags.Items.SHEARS*//*?} elif neoforge {*//*? if <1.21 {*/Tags.Items.TOOLS_SHEARS/*?} else {*//*Tags.Items.TOOLS_SHEAR*//*?}*//*?} else {*//*/^? if <1.21 {^//^ConventionalItemTags.SHEARS^//^?} else {^/ConventionalItemTags.SHEAR_TOOLS/^?}^/*//*?}*/) && !player.isCrouching() && state.is(Blocks.PITCHER_PLANT) && state.getValue(DoublePlantBlock.HALF)==DoubleBlockHalf.UPPER) { // Most Readable Line
+            if (!player.getAbilities().instabuild && !player.getMainHandItem().is(/*? if forge {*//*Tags.Items.SHEARS*//*?} elif neoforge {*//*? if <1.21 {*/Tags.Items.TOOLS_SHEARS/*?} else {*//*Tags.Items.TOOLS_SHEAR*//*?}*//*?} else {*//*/^? if >=1.21 {^//^ConventionalItemTags.SHEAR_TOOLS^//^?} elif >=1.20.5 {^/ConventionalItemTags.SHEARS_TOOLS/^?} else {^//^ConventionalItemTags.SHEARS^//^?}^/*//*?}*/) && !player.isCrouching() && state.is(Blocks.PITCHER_PLANT) && state.getValue(DoublePlantBlock.HALF)==DoubleBlockHalf.UPPER) { // Most Readable Line
                 PitcherPodExplosive projectile = new PitcherPodExplosive(pos.getCenter().x, pos.getCenter().y, pos.getCenter().z, player.level());
                 projectile.setOwner(player);
                 projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 0.5F, 1.0F);
